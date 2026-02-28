@@ -24,7 +24,7 @@ class Course(Base):
     __tablename__ = 'course'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(255), nullable=False)
+    title = Column(String(255), nullable=False)
     description = Column(String(255), nullable=False)
     difficulty = Column(String(50), nullable=False)
     language = Column(String(50), nullable=False)
@@ -35,7 +35,7 @@ class Module(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
-    oreder_index = Column(Integer, nullable=False)
+    order_index = Column(Integer, nullable=False)
     is_locked = Column(Boolean, nullable=False)
     course_id = Column(Integer, ForeignKey('course.id'), nullable=False)
 
@@ -79,7 +79,7 @@ class Test(Base):
     score = Column(Integer, nullable=False)
     passing_score = Column(Integer, nullable=False)
     is_passed = Column(Boolean, nullable=False)
-    attempts_left = Column(Integer, nullable=False)
+    attempts_limit = Column(Integer, nullable=False)
     time_limit = Column(Integer, nullable=False)
     material_id = Column(Integer, ForeignKey('material.id'), nullable=False)
 
