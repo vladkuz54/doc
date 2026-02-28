@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, Date
 from sqlalchemy.ext.declarative import declarative_base
-from .interfaces import IDBModels
 
-from .__init__ import engine
+from .interfaces import IDBModels
+from .__init__ import engine 
 
 Base = declarative_base()
 
@@ -39,7 +39,7 @@ class Material(Base):
 
 class Video(Base):
     __tablename__ = 'video'
-
+ 
     id = Column(Integer, primary_key=True)
     url = Column(String(255), nullable=False)
     is_watched = Column(Boolean, nullable=False)

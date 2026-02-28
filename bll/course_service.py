@@ -11,10 +11,6 @@ class CourseService:
         self.db_models.create_tables()
 
     def import_data(self):
+        data = self.csv_reader.read_csv()
+        self.db_repository.data = data
         self.db_repository.paste_all()
-
-if __name__ == "__main__":
-    
-    service = CourseService(ICSVReader, IDBModels, IDBRepository)
-    service.setup_database()
-    service.import_data()

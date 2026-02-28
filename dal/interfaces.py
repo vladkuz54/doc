@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 class ICSVReader(ABC):
     @abstractmethod
     def read_csv(self):
-        pass
+        pass 
 
 class IDBModels(ABC):
     @abstractmethod
@@ -11,8 +11,6 @@ class IDBModels(ABC):
         pass
 
 class IDBRepository(ABC):
-
     @abstractmethod
-    def paste_all(self, data):
-        print("Pasting all data to the database...")
+    def paste_all(self):
         pass

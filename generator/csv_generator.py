@@ -1,7 +1,7 @@
 import os
 import csv
 import random
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta 
 
 class CSVGenerator:
     def __init__(self, filename='courses.csv', num_rows=1000):
@@ -77,7 +77,7 @@ class CSVGenerator:
                 "test_attempts_limit": "",
                 "test_time_limit": ""
             })
-        else:  # Test
+        else: 
             base.update({
                 "material_title": "Final Quiz",
                 "video_url": "",
@@ -145,7 +145,3 @@ class CSVGenerator:
                 ]
                 writer.writerow(row)
         print(f'Generated {self.num_rows} rows in {filepath}')
-
-if __name__ == "__main__":
-    generator = CSVGenerator()
-    generator.generate_csv()

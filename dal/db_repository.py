@@ -1,12 +1,14 @@
+from tqdm import tqdm
+
+from .csv_reader import CSVReader
 from .db_models import Course, Module, Material, Video, Text, Test
 from .interfaces import IDBRepository
+from .__init__ import session
 
-from .__init__ import engine, session
-
-class DBRepository(IDBRepository):
-    def __init__(self, engine, data):
+class DBRepository(IDBRepository): 
+    def __init__(self, engine, data=None):
         self.engine = engine
-        self.data = data
+        self.data = data or []
     
     def course_paste(self, row):
         for key, value in row.items():   
@@ -118,52 +120,17 @@ class DBRepository(IDBRepository):
                 )
                 session.add(test)
                 session.commit()
-        
+         
     def paste_all(self):
-        for row in self.data:
+        print("Importing data to database...")
+        for row in tqdm(self.data, desc="Processing rows", unit="row"):
             self.course_paste(row)
             self.module_paste(row)
             self.material_paste(row)
-            if row["video_url"]:
+            if row["material_type"] == "Video":
                 self.video_paste(row)
-            if row["text_body"]:
+            if row["material_type"] == "Text":
                 self.text_paste(row)
-            if row["test_score"]:
+            if row["material_type"] == "Test":
                 self.test_paste(row)
-
-
-if __name__ == "__main__":
-    # Example usage
-    data = [
-        {
-            "course_title": "Python Programming",
-            "course_description": "Learn Python from scratch",
-            "course_difficulty": "Beginner",
-            "course_language": "English",
-            "module_title": "Introduction to Python",
-            "module_order_index": 1,
-            "module_is_locked": False,
-            "material_title": "Python Basics",
-            "material_type": "Video",
-            "estimated_time": 60,
-            "is_mandatory": True,
-            "release_date": "2024-01-01",
-            "video_url": "https://example.com/python_basics.mp4",
-            "video_is_watched": False,
-            "video_duration_seconds": 3600,
-            "video_has_subtitles": True,
-            "text_body": "",
-            "text_is_read": False,
-            "text_reading_time_min": 0,
-            "text_is_downloadable": False,
-            "text_word_count": 0,
-            "test_score": None,
-            "test_passing_score": None,
-            "test_is_passed": None,
-            "test_attempts_limit": None,
-            "test_time_limit": None
-        }
-    ]
-
-    repository = DBRepository(engine, data)
-    repository.paste_all()
+        print("Data import completed!")
