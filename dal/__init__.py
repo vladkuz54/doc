@@ -9,5 +9,3 @@ engine = create_engine(DATABASE_URL, echo=False)
 
 Session = sessionmaker(bind=engine)
 session = Session()
-
-print(f"Using SQLite database at '{DB_NAME}'.")
