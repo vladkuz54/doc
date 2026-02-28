@@ -1,7 +1,8 @@
 import csv
-import os
 
-class CSVReader:
+from .interfaces import ICSVReader
+
+class CSVReader(ICSVReader):
     def __init__(self, filepath):
         self.filepath = filepath
 

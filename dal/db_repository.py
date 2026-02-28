@@ -1,21 +1,9 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from db_models import Course, Module, Material, Video, Text, Test
+from .db_models import Course, Module, Material, Video, Text, Test
+from .interfaces import IDBRepository
 
-DB_USER = "root"
-DB_PASSWORD = "2077vkuz"
-DB_HOST = "localhost"
-DB_PORT = 3306 
-DB_NAME = "courses_db"
+from .__init__ import engine, session
 
-DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
-engine = create_engine(DATABASE_URL, echo=True)
-
-Session = sessionmaker(bind=engine)
-session = Session()
-
-class DBRepository:
+class DBRepository(IDBRepository):
     def __init__(self, engine, data):
         self.engine = engine
         self.data = data
@@ -144,3 +132,38 @@ class DBRepository:
                 self.test_paste(row)
 
 
+if __name__ == "__main__":
+    # Example usage
+    data = [
+        {
+            "course_title": "Python Programming",
+            "course_description": "Learn Python from scratch",
+            "course_difficulty": "Beginner",
+            "course_language": "English",
+            "module_title": "Introduction to Python",
+            "module_order_index": 1,
+            "module_is_locked": False,
+            "material_title": "Python Basics",
+            "material_type": "Video",
+            "estimated_time": 60,
+            "is_mandatory": True,
+            "release_date": "2024-01-01",
+            "video_url": "https://example.com/python_basics.mp4",
+            "video_is_watched": False,
+            "video_duration_seconds": 3600,
+            "video_has_subtitles": True,
+            "text_body": "",
+            "text_is_read": False,
+            "text_reading_time_min": 0,
+            "text_is_downloadable": False,
+            "text_word_count": 0,
+            "test_score": None,
+            "test_passing_score": None,
+            "test_is_passed": None,
+            "test_attempts_limit": None,
+            "test_time_limit": None
+        }
+    ]
+
+    repository = DBRepository(engine, data)
+    repository.paste_all()

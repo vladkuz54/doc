@@ -1,3 +1,5 @@
 venv
 copilot-instructions.md
 data
+*.pyc
+**/__pycache__/
