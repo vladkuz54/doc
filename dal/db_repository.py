@@ -6,9 +6,9 @@ from .interfaces import IDBRepository
 from .__init__ import session
 
 class DBRepository(IDBRepository): 
-    def __init__(self, engine, data=None):
+    def __init__(self, engine, data):
         self.engine = engine
-        self.data = data or []
+        self.data = data 
     
     def course_paste(self, row):
         for key, value in row.items():   

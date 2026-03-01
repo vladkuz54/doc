@@ -33,7 +33,7 @@ def main():
             db_models = DBModels(engine)
 
             service = CourseService(csv_reader, db_models, db_repository)
-            service.setup_database()
+            service.create_tables()
             service.import_data()
 
         elif command == "exit":

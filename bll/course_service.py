@@ -7,7 +7,7 @@ class CourseService:
         self.db_models = db_models
         self.db_repository = db_repository
         
-    def setup_database(self):
+    def create_tables(self):
         self.db_models.create_tables()
 
     def import_data(self):
