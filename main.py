@@ -27,7 +27,11 @@ def main():
             print(f"CSV file generated with {num_rows} rows.")
 
         elif command == "create database":
-            csv_reader = CSVReader("data/courses.csv")
+            filiname = input("Enter the CSV filename to import (default 'data/courses.csv'): ").strip()
+            if not filiname:
+                filiname = "data/courses.csv"
+            filiname = filiname.strip('"\'')
+            csv_reader = CSVReader(filiname)
             data = csv_reader.read_csv()
             db_repository = DBRepository(engine, data)
             db_models = DBModels(engine)
