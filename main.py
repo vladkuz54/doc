@@ -4,48 +4,81 @@ from dal.db_models import DBModels
 from dal import engine
 from bll.course_service import CourseService
 from generator.csv_generator import CSVGenerator
+import json
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, field_validator
 
-def main():
-    print("Available commands:")
-    print("1. generate csv - Generate a new CSV file with random data.")
-    print("2. create database - Create tables and import data from the CSV file.")
-    print("3. exit - Exit the program.")
+APP_VERSION = 1.0
+DEBUG = False
+ENV = "development"
 
-    while True:
-        command = input("\nEnter a command: ").strip().lower()
+app = FastAPI(title="Course API", version=APP_VERSION, debug=DEBUG)
 
-        if command == "generate csv":
-            num_rows = input("Enter the number of rows to generate (default 1000): ").strip()
-            if not num_rows.isdigit():
-                num_rows = 1000
-            else:                
-                if int(num_rows) < 1000:
-                    print("Minimum number of rows is 1000. Setting to 1000.")
-                    num_rows = 1000
-            generator = CSVGenerator(filename="courses.csv", num_rows=int(num_rows))
-            generator.generate_csv()
-            print(f"CSV file generated with {num_rows} rows.")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["3000", "http://localhost:3000", "http://"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-        elif command == "create database":
-            filiname = input("Enter the CSV filename to import (default 'data/courses.csv'): ").strip()
-            if not filiname:
-                filiname = "data/courses.csv"
-            filiname = filiname.strip('"\'')
-            csv_reader = CSVReader(filiname)
-            data = csv_reader.read_csv()
-            db_repository = DBRepository(engine, data)
-            db_models = DBModels(engine)
 
-            service = CourseService(csv_reader, db_models, db_repository)
-            service.create_tables()
-            service.import_data()
+@app.get("/generate-csv/{num_rows}")
+def generate_csv(num_rows: int):
+    if num_rows < 1000:
+        raise HTTPException(status_code=400, detail="Minimum number of rows is 1000.")
+    generator = CSVGenerator(filename="courses.csv", num_rows=num_rows)
+    generator.generate_csv()
+    return {"message": f"CSV file generated with {num_rows} rows in ./data/."}
 
-        elif command == "exit":
-            print("Goodbye!")
-            break
+@app.post("/create-database")
+def create_database():
+    csv_reader = CSVReader("data/courses.csv")
+    data = csv_reader.read_csv()
+    db_repository = DBRepository(engine, data)
+    db_models = DBModels(engine)
 
-        else:
-            print("Unknown command. Please try again.")
+    service = CourseService(csv_reader, db_models, db_repository)
+    service.create_tables()
+    service.import_data()
+    return {"message": "Database created and data imported successfully."}
 
-if __name__ == "__main__":
-    main()
+# def main():
+#     print("Available commands:")
+#     print("1. generate csv - Generate a new CSV file with random data.")
+#     print("2. create database - Create tables and import data from the CSV file.")
+#     print("3. exit - Exit the program.")
+
+#     while True:
+#         command = input("\nEnter a command: ").strip().lower()
+
+#         if command == "generate csv":
+#             num_rows = input("Enter the number of rows to generate (default 1000): ").strip()
+#             if not num_rows.isdigit():
+#                 num_rows = 1000
+#             else:                
+#                 if int(num_rows) < 1000:
+#                     print("Minimum number of rows is 1000. Setting to 1000.")
+#                     num_rows = 1000
+#             generator = CSVGenerator(filename="courses.csv", num_rows=int(num_rows))
+#             generator.generate_csv()
+#             print(f"CSV file generated with {num_rows} rows.")
+
+#         elif command == "create database":
+#             csv_reader = CSVReader("data/courses.csv")
+#             data = csv_reader.read_csv()
+#             db_repository = DBRepository(engine, data)
+#             db_models = DBModels(engine)
+
+#             service = CourseService(csv_reader, db_models, db_repository)
+#             service.create_tables()
+#             service.import_data()
+
+#         elif command == "exit":
+#             print("Goodbye!")
+#             break
+
+#         else:
+#             print("Unknown command. Please try again.")
+
