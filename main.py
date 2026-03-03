@@ -24,7 +24,7 @@ app.add_middleware(
 )
 
 
-@app.get("/generate-csv/{num_rows}")
+@app.post("/generate-csv/{num_rows}")
 def generate_csv(num_rows: int):
     if num_rows < 1000:
         raise HTTPException(status_code=400, detail="Minimum number of rows is 1000.")
