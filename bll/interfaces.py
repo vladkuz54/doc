@@ -1,5 +1,10 @@
+from abc import ABC, abstractmethod
 
+class ICourseService(ABC):
+    @abstractmethod
+    def create_tables(self):
+        pass
 
-class IPresentation:
-    def display(self, data):
+    @abstractmethod
+    def import_data(self):
         pass

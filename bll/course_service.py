@@ -1,7 +1,8 @@
 from dal.interfaces import ICSVReader, IDBModels, IDBRepository
+from .interfaces import ICourseService
 
 
-class CourseService:
+class CourseService(ICourseService):
     def __init__(self, csv_reader: ICSVReader, db_models: IDBModels, db_repository: IDBRepository):
         self.csv_reader = csv_reader
         self.db_models = db_models
