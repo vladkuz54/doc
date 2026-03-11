@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, Date
 from sqlalchemy.orm import relationship
 
-from __init__ import engine, Base
+from .__init__ import engine, Base
 
 
 class Course(Base):

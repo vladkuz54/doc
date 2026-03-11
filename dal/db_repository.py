@@ -1,8 +1,8 @@
 from tqdm import tqdm
 
-from csv_reader import CSVReader
-from db_models import Course, Module, Material, Video, Text, Test
-from __init__ import session, engine
+from .csv_reader import CSVReader
+from .db_models import Course, Module, Material, Video, Text, Test
+from .__init__ import session, engine
 
 class DBRepository: 
     def __init__(self, engine, data):
