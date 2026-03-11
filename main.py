@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
-from presentation.routers import course_router, module_router, material_router
-from presentation.routers import api_router
+from presentation.routers import course_router, module_router, material_router, api_router
 
 app = FastAPI()
 templates = Jinja2Templates(directory="presentation/templates")
