@@ -1,5 +1,16 @@
 from abc import ABC, abstractmethod
 
+class IDBRepository(ABC):
+    @abstractmethod
+    def paste_all(self):
+        pass
+
+
+class IDBModels(ABC):
+    @abstractmethod
+    def create_tables(self):
+        pass
+
 class ICourseRepository(ABC):
     @abstractmethod
     def get_by_id(self, course_id):

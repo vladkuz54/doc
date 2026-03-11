@@ -1,14 +1,16 @@
 from tqdm import tqdm
 
-from .csv_reader import CSVReader
 from .db_models import Course, Module, Material, Video, Text, Test
-from .__init__ import session, engine
+from . import session, engine
+from .interfaces import IDBRepository
 
-class DBRepository: 
-    def __init__(self, engine, data):
-        self.engine = engine
-        self.data = data 
-    
+
+class DBRepository(IDBRepository): 
+
+    def __init__(self, data):
+        self.data = data
+
+
     def course_paste(self, row): 
         check = session.query(Course).filter_by(title=row["course_title"]).first()
         if not check:
@@ -130,11 +132,3 @@ class DBRepository:
             if row["material_type"] == "Test":
                 self.test_paste(row)
         print("Data import completed!")
-
-
-if __name__ == "__main__":
-    csv_reader = CSVReader("data/courses.csv")
-    data = csv_reader.read_csv()
-    
-    repository = DBRepository(engine, data)
-    repository.paste_all()

@@ -1,6 +1,15 @@
 from abc import ABC, abstractmethod
-from typing import Optional
 
+
+class IDBService(ABC):
+
+    @abstractmethod
+    def create_tables(self):
+        pass
+
+    @abstractmethod
+    def paste_all(self):
+        pass
 
 class ICourseService(ABC):
     @abstractmethod

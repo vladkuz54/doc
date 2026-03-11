@@ -1,6 +1,5 @@
 venv
 copilot-instructions.md
-data
 *.pyc
 \__pycache__
 courses.sqlite

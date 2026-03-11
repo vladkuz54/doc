@@ -4,6 +4,7 @@ from fastapi.responses import RedirectResponse
 from bll.module_service import ModuleService
 from dal.course_repository import CourseRepository
 from ..dependecies import get_module_service
+from ..schemas import ModuleSchema
 
 router = APIRouter(prefix="/module")
 templates = Jinja2Templates(directory="presentation/templates")
@@ -20,7 +21,7 @@ def add_module_form(request: Request):
     courses = CourseRepository().get_all()
     return templates.TemplateResponse("module/module_form.html", {
         "request": request,
-        "action_title": "Додати модуль",
+        "action_title": "Add module",
         "action_url": "/module/add",
         "module": None,
         "courses": courses,
@@ -35,7 +36,8 @@ def add_module(
     course_id: int = Form(...),
     service: ModuleService = Depends(get_module_service),
 ):
-    service.create({"title": title, "order_index": order_index, "is_locked": is_locked, "course_id": course_id})
+    data = ModuleSchema(title=title, order_index=order_index, is_locked=is_locked, course_id=course_id)
+    service.create(data.model_dump())
     return RedirectResponse(url="/module", status_code=303)
 
 
@@ -45,7 +47,7 @@ def edit_module_form(module_id: int, request: Request, service: ModuleService = 
     courses = CourseRepository().get_all()
     return templates.TemplateResponse("module/module_form.html", {
         "request": request,
-        "action_title": "Редагувати модуль",
+        "action_title": "Edit module",
         "action_url": f"/module/edit/{module_id}",
         "module": module,
         "courses": courses,
@@ -61,7 +63,8 @@ def edit_module(
     course_id: int = Form(...),
     service: ModuleService = Depends(get_module_service),
 ):
-    service.update(module_id, {"title": title, "order_index": order_index, "is_locked": is_locked, "course_id": course_id})
+    data = ModuleSchema(title=title, order_index=order_index, is_locked=is_locked, course_id=course_id)
+    service.update(module_id, data.model_dump())
     return RedirectResponse(url="/module", status_code=303)
 
 

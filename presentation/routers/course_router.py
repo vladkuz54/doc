@@ -2,6 +2,7 @@ from fastapi import APIRouter, Request, Depends, Form
 from fastapi.templating import Jinja2Templates
 from bll.course_service import CourseService
 from ..dependecies import get_course_service
+from ..schemas import CourseSchema
 from fastapi.responses import RedirectResponse
 
 router = APIRouter(prefix="/courses")
@@ -16,7 +17,7 @@ def list_courses(request: Request, service: CourseService = Depends(get_course_s
 def add_course_form(request: Request):
     return templates.TemplateResponse("course/course_form.html", {
         "request": request,
-        "action_title": "Додати курс",
+        "action_title": "Add course",
         "action_url": "/courses/add",
         "course": None,
     })
@@ -30,7 +31,8 @@ def add_course(
     language: str = Form(...),
     service: CourseService = Depends(get_course_service),
 ):
-    service.create({"title": title, "description": description, "difficulty": difficulty, "language": language})
+    data = CourseSchema(title=title, description=description, difficulty=difficulty, language=language)
+    service.create(data.model_dump())
     return RedirectResponse(url="/courses", status_code=303)
 
 @router.get("/edit/{course_id}")
@@ -38,7 +40,7 @@ def edit_course_form(course_id: int, request: Request, service: CourseService = 
     course = service.get_by_id(course_id)
     return templates.TemplateResponse("course/course_form.html", {
         "request": request,
-        "action_title": "Редагувати курс",
+        "action_title": "Edit course",
         "action_url": f"/courses/edit/{course_id}",
         "course": course,
     })
@@ -52,7 +54,8 @@ def edit_course(
     language: str = Form(...),
     service: CourseService = Depends(get_course_service),
 ):
-    service.update(course_id, {"title": title, "description": description, "difficulty": difficulty, "language": language})
+    data = CourseSchema(title=title, description=description, difficulty=difficulty, language=language)
+    service.update(course_id, data.model_dump())
     return RedirectResponse(url="/courses", status_code=303)
 
 @router.post("/delete/{course_id}")

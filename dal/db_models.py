@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, Date
 from sqlalchemy.orm import relationship
 
 from .__init__ import engine, Base
+from .interfaces import IDBModels
 
 
 class Course(Base):
@@ -88,12 +89,9 @@ class Test(Material):
     }
 
 
-class DBModels:
-    def __init__(self, engine):
-        self.engine = engine
-
+class DBModels(IDBModels):
     def create_tables(self):
-        Base.metadata.create_all(self.engine)
+        Base.metadata.create_all(engine)
 
 
 if __name__ == "__main__":
