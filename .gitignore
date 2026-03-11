@@ -5,3 +5,4 @@ data
 \__pycache__
 courses.sqlite
 .vscode
+dal/__init__.py
