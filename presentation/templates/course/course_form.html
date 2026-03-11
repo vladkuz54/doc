@@ -24,7 +24,9 @@
             <input type="text" name="language" class="form-control" value="{{ course.language if course else 'Ukrainian' }}">
         </div>
     </div>
-    <button type="submit" class="btn btn-success">Save</button>
-    <a href="/courses" class="btn btn-secondary">Cancel</a>
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="/courses" class="btn btn-secondary">Cancel</a>
+    </div>
 </form>
 {% endblock %}

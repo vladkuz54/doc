@@ -1,6 +1,7 @@
 import csv
 from datetime import datetime
 
+
 class CSVReader:
     def __init__(self, filepath):
         self.filepath = filepath

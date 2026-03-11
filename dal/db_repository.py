@@ -1,7 +1,7 @@
 from tqdm import tqdm
 
 from .db_models import Course, Module, Material, Video, Text, Test
-from . import session, engine
+from . import session
 from .interfaces import IDBRepository
 
 

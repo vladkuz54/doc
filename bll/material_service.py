@@ -1,5 +1,5 @@
 from dal.interfaces import IMaterialRepository
-from dal.db_models import Material, Video, Text, Test
+from dal.db_models import Video, Text, Test
 from .interfaces import IMaterialService
 
 _BASE_FIELDS = {'title', 'type', 'estimated_time', 'is_mandatory', 'release_date', 'module_id'}
@@ -18,10 +18,10 @@ _TYPE_MODEL: dict[str, type] = {
 
 
 class MaterialService(IMaterialService):
-    def __init__(self, repository: IMaterialRepository) -> None:
+    def __init__(self, repository: IMaterialRepository):
         self.repository = repository
 
-    def get_all(self) -> list:
+    def get_all(self):
         return self.repository.get_all()
 
     def get_by_id(self, material_id: int):
@@ -50,5 +50,5 @@ class MaterialService(IMaterialService):
                 setattr(material, field, value)
         return self.repository.update(material)
 
-    def delete(self, material_id: int) -> bool:
+    def delete(self, material_id: int):
         return self.repository.delete(material_id)

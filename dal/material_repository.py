@@ -1,6 +1,5 @@
 from .__init__ import session
 from .db_models import Material
-
 from .interfaces import IMaterialRepository
 
 class MaterialRepository(IMaterialRepository):

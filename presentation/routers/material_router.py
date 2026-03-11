@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Request, Depends, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
+from datetime import date
+
 from bll.material_service import MaterialService
 from dal.module_repository import ModuleRepository
 from ..dependecies import get_material_service
 from ..schemas import VideoSchema, TextSchema, TestSchema
-from datetime import date
 
 router = APIRouter(prefix="/material")
 templates = Jinja2Templates(directory="presentation/templates")

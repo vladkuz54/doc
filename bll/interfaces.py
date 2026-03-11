@@ -13,7 +13,7 @@ class IDBService(ABC):
 
 class ICourseService(ABC):
     @abstractmethod
-    def get_all(self) -> list:
+    def get_all(self):
         pass
 
     @abstractmethod
@@ -29,13 +29,13 @@ class ICourseService(ABC):
         pass
 
     @abstractmethod
-    def delete(self, course_id: int) -> bool:
+    def delete(self, course_id: int):
         pass
 
 
 class IModuleService(ABC):
     @abstractmethod
-    def get_all(self) -> list:
+    def get_all(self):
         pass
 
     @abstractmethod
@@ -51,13 +51,13 @@ class IModuleService(ABC):
         pass
 
     @abstractmethod
-    def delete(self, module_id: int) -> bool:
+    def delete(self, module_id: int):
         pass
 
 
 class IMaterialService(ABC):
     @abstractmethod
-    def get_all(self) -> list:
+    def get_all(self):
         pass
 
     @abstractmethod
@@ -73,5 +73,5 @@ class IMaterialService(ABC):
         pass
 
     @abstractmethod
-    def delete(self, material_id: int) -> bool:
+    def delete(self, material_id: int):
         pass

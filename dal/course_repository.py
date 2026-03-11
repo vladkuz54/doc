@@ -1,7 +1,7 @@
 from .__init__ import session
 from .db_models import Course
-
 from .interfaces import ICourseRepository
+
 
 class CourseRepository(ICourseRepository):
 

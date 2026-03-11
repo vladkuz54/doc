@@ -6,10 +6,10 @@ _MODULE_FIELDS = {'title', 'order_index', 'is_locked', 'course_id'}
 
 
 class ModuleService(IModuleService):
-    def __init__(self, repository: IModuleRepository) -> None:
+    def __init__(self, repository: IModuleRepository):
         self.repository = repository
 
-    def get_all(self) -> list:
+    def get_all(self):
         return self.repository.get_all()
 
     def get_by_id(self, module_id: int):
@@ -33,5 +33,5 @@ class ModuleService(IModuleService):
                 setattr(module, field, value)
         return self.repository.update(module)
 
-    def delete(self, module_id: int) -> bool:
+    def delete(self, module_id: int):
         return self.repository.delete(module_id)

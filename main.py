@@ -10,7 +10,6 @@ templates = Jinja2Templates(directory="presentation/templates")
 def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-
 app.include_router(course_router.router)
 app.include_router(module_router.router)
 app.include_router(material_router.router)

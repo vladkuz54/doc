@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Request, Depends, Form
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
+
 from bll.course_service import CourseService
 from ..dependecies import get_course_service
 from ..schemas import CourseSchema
-from fastapi.responses import RedirectResponse
 
 router = APIRouter(prefix="/courses")
 templates = Jinja2Templates(directory="presentation/templates")

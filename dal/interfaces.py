@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 
+
 class IDBRepository(ABC):
     @abstractmethod
     def paste_all(self):
         pass
-
 
 class IDBModels(ABC):
     @abstractmethod
