@@ -24,7 +24,7 @@
             <td>
                 <a href="/material/video/edit/{{ m.id }}" class="btn btn-sm btn-warning">Edit</a>
                 <form action="/material/delete/{{ m.id }}" method="POST" style="display:inline;">
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this video?')">Delete</button>
                 </form>
             </td>
         </tr>
