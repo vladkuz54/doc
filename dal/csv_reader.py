@@ -1,9 +1,8 @@
 import csv
 from datetime import datetime
 
-from .interfaces import ICSVReader
 
-class CSVReader(ICSVReader):
+class CSVReader:
     def __init__(self, filepath):
         self.filepath = filepath
 

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ action_title }}</h2>
+<form action="{{ action_url }}" method="POST" class="card p-4 shadow-sm">
+    <h5 class="mb-3 text-muted">Base Material Fields</h5>
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" value="{{ material.title if material else '' }}" required>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Time (minutes)</label>
+            <input type="number" name="estimated_time" class="form-control" value="{{ material.estimated_time if material else '' }}" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Release Date</label>
+            <input type="date" name="release_date" class="form-control" value="{{ material.release_date if material else '' }}" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Module</label>
+            <select name="module_id" class="form-select" required>
+                {% for mod in modules %}
+                <option value="{{ mod.id }}" {{ 'selected' if material and material.module_id == mod.id }}>{{ mod.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" name="is_mandatory" class="form-check-input" id="isMandatory" value="true" {{ 'checked' if material and material.is_mandatory }}>
+        <label class="form-check-label" for="isMandatory">Mandatory</label>
+    </div>
+    <hr>
+    <h5 class="mb-3 text-muted">Text Fields</h5>
+    <div class="mb-3">
+        <label class="form-label">Body</label>
+        <textarea name="body" class="form-control" rows="4" required>{{ material.body if material else '' }}</textarea>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Reading Time (minutes)</label>
+            <input type="number" name="reading_time_minutes" class="form-control" value="{{ material.reading_time_minutes if material else '' }}" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Word Count</label>
+            <input type="number" name="word_count" class="form-control" value="{{ material.word_count if material else '' }}" required>
+        </div>
+    </div>
+    <div class="d-flex gap-3 mb-3">
+        <div class="form-check">
+            <input type="checkbox" name="is_read" class="form-check-input" id="isRead" value="true" {{ 'checked' if material and material.is_read }}>
+            <label class="form-check-label" for="isRead">Read</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" name="is_downloadable" class="form-check-input" id="isDownloadable" value="true" {{ 'checked' if material and material.is_downloadable }}>
+            <label class="form-check-label" for="isDownloadable">Downloadable</label>
+        </div>
+    </div>
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="/material/text" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+{% endblock %}

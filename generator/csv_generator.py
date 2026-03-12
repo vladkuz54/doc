@@ -1,4 +1,3 @@
-import os
 import csv
 import random
 from datetime import datetime, timedelta 
@@ -98,9 +97,7 @@ class CSVGenerator:
         return base
 
     def generate_csv(self):
-        if not os.path.exists("data/"):
-            os.makedirs("data/", exist_ok=True)
-        filepath = f"data/{self.filename}"
+        filepath = f"{self.filename}"
         with open(filepath, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             writer.writerow([
@@ -145,3 +142,5 @@ class CSVGenerator:
                 ]
                 writer.writerow(row)
         print(f'Generated {self.num_rows} rows in {filepath}')
+
+generator = CSVGenerator(filename='courses.csv', num_rows=1000)
