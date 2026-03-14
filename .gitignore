@@ -5,3 +5,4 @@ copilot-instructions.md
 courses.sqlite
 .vscode
 dal/__init__.py
+data
