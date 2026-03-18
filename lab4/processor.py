@@ -1,7 +1,7 @@
 import csv
 import json
 
-from dal.strategies import IOutputStrategy
+from lab4.strategies import IOutputStrategy
 
 
 class DataProcessor:

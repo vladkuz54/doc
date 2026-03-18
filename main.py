@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
-from bll.processor import DataProcessor
-from dal.reader import fetch_csv_to_file
-from dal.strategies import ConsoleOutput, KafkaOutput, RedisOutput
+from lab4.processor import DataProcessor
+from lab4.reader import fetch_csv_to_file
+from lab4.strategies import ConsoleOutput, KafkaOutput, RedisOutput
 
 
 def main():
