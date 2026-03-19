@@ -1,0 +1,13 @@
+{
+  "output_type": "console",
+  "kafka_settings": {
+    "bootstrap_servers": "localhost:9092",
+    "topic": "animal_shelter_data"
+  },
+  "redis_settings": {
+    "host": "localhost",
+    "port": 6379,
+    "db": 0,
+    "list_name": "shelter_logs"
+  }
+}
