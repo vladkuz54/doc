@@ -6,3 +6,4 @@ courses.sqlite
 .vscode
 dal/__init__.py
 data
+firebase-service-account.json

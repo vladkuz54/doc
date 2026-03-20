@@ -13,6 +13,7 @@ fastapi-cli==0.0.24
 fastapi-cloud-cli==0.14.0
 fastapi-swagger==0.4.44
 fastar==0.8.0
+firebase-admin
 greenlet==3.3.2
 h11==0.16.0
 httpcore==1.0.9

@@ -1,5 +1,5 @@
 {
-  "output_type": "console",
+  "output_type": "firebase",
   "kafka_settings": {
     "bootstrap_servers": "localhost:9092",
     "topic": "animal_shelter_data"
@@ -9,5 +9,9 @@
     "port": 6379,
     "db": 0,
     "list_name": "shelter_logs"
+  },
+  "firebase_settings": {
+    "credentials_path": "firebase-service-account.json",
+    "collection_name": "shelter_logs"
   }
 }
